@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Bright Side Technology — Technical Support, System Integration, Microsoft 365 Support, SQL Development, Consulting, Websites & Design." />
+  <title>Bright Side Technology</title>
+
+  <style>
+    :root{
+      --bg:#0c1420;
+      --surface:#101c2c;
+      --surface2:#0f2231;
+      --text:#e9f1f5;
+      --muted:#a8bcc7;
+      --accent:#29d6c9;
+      --accent2:#1b8893;
+      --border:rgba(255,255,255,.12);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1000px 600px at 20% 10%, rgba(41,214,201,.18), transparent 55%),
+                  radial-gradient(900px 520px at 80% 40%, rgba(27,136,147,.22), transparent 55%),
+                  linear-gradient(180deg, #07101a, var(--bg));
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .pill{display:inline-flex; gap:10px; align-items:center; padding:10px 14px; border:1px solid var(--border); border-radius:999px; background:rgba(255,255,255,.04)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px; border-radius:12px; border:1px solid var(--border);
+      background:rgba(255,255,255,.06); color:var(--text);
+      cursor:pointer; transition:.15s ease;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow)}
+    .btn.primary{background:linear-gradient(135deg, var(--accent), var(--accent2)); border-color:transparent; color:#041215}
+    .btn.ghost{background:transparent}
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(7,16,26,.72);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{
+      width:44px; height:44px; border-radius:12px;
+      background:rgba(255,255,255,.08);
+      display:grid; place-items:center;
+      border:1px solid var(--border);
+      overflow:hidden;
+    }
+    .logo img{width:100%; height:100%; object-fit:cover}
+    .brand h1{font-size:16px; margin:0; letter-spacing:.3px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:10px; flex-wrap:wrap}
+    nav a{
+      padding:10px 12px; border-radius:10px;
+      border:1px solid transparent;
+      color:var(--muted);
+      font-weight:600;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    nav a.active{color:var(--text); border-color:var(--border); background:rgba(255,255,255,.04)}
+
+    /* Hero */
+    .hero{padding:46px 0 22px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){ .hero-grid{grid-template-columns:1fr} }
+    .card{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      border-radius:var(--radius);
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+      padding:18px;
+    }
+    .hero h2{margin:12px 0 10px; font-size:38px; line-height:1.08}
+    .hero p{margin:0 0 16px; color:var(--muted); font-size:16px; line-height:1.6}
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap}
+
+    /* Images */
+    .img-wrap{
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.18);
+      box-shadow: var(--shadow);
+    }
+    .img-wrap img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+    .hero-image{height:260px}
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+
+    /* Service cards */
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;}
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+    .service h3{margin:10px 0 6px; font-size:18px}
+    .service p{margin:0; color:var(--muted); line-height:1.6}
+    .thumb{height:160px}
+
+    .section{padding:26px 0}
+    .section h3{margin:0 0 10px; font-size:22px}
+    .section .sub{margin:0 0 16px; color:var(--muted); line-height:1.6}
+    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width:900px){ .two-col{grid-template-columns:1fr} }
+    .list{margin:0; padding-left:18px; color:var(--muted); line-height:1.7}
+
+    form{display:grid; gap:10px}
+    label{font-size:12px; color:var(--muted); font-weight:700; letter-spacing:.2px}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:110px; resize:vertical}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    @media (max-width:900px){ .row{grid-template-columns:1fr} }
+
+    .toast{
+      position:fixed; right:16px; bottom:16px; z-index:80;
+      max-width: 360px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(10,18,28,.9);
+      box-shadow:var(--shadow);
+      display:none;
+    }
+
+    /* Fix dropdown visibility */
+    select { background-color:#0c1420; color:#e9f1f5; }
+    select option { background-color:#0c1420; color:#e9f1f5; }
+    select option[disabled] { color:#a8bcc7; }
+    select option:checked, select option:hover { background-color:#29d6c9; color:#041215; }
+
+    /* Form status messages */
+    .form-status{
+      display:none;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.15);
+      border-radius:12px;
+      padding:12px;
+      color:var(--text);
+    }
+    .form-status.ok{border-color:rgba(41,214,201,.45)}
+    .form-status.err{border-color:rgba(255,120,120,.45)}
+
+    footer{
+      margin-top:24px;
+      border-top:1px solid var(--border);
+      background:rgba(7,16,26,.55);
+      padding:18px 0 30px;
+      color:var(--muted);
+    }
+    footer a{color:var(--text); opacity:.9}
+    .mini{font-size:12px; color:var(--muted); line-height:1.6}
+    .page{display:none}
+    .page.active{display:block}
+    .badge{font-size:12px; font-weight:800; color:#041215; padding:4px 10px; border-radius:999px; background:linear-gradient(135deg, var(--accent), var(--accent2))}
+    .divider{height:1px; background:var(--border); margin:12px 0}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#/home" aria-label="Bright Side Technology Home">
+        <div class="logo" title="BST Logo">
+          <img
+            src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770531680/Bright_Side_Technology_Logo_-_Sleek_and_Modern_qrrnwk.png"
+            alt="Bright Side Technology logo"
+            loading="eager"
+          />
+        </div>
+        <div>
+          <h1>Bright Side Technology</h1>
+          <span>IT Services • Integration • Microsoft 365 • SQL • Web</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a data-route="#/home" href="#/home">Home</a></li>
+          <li><a data-route="#/services" href="#/services">Services</a></li>
+          <li><a data-route="#/solutions" href="#/solutions">Solutions</a></li>
+          <li><a data-route="#/about" href="#/about">About</a></li>
+          <li><a data-route="#/contact" href="#/contact">Contact</a></li>
+          <li><a data-route="#/legal" href="#/legal">Legal</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HOME -->
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="hero-grid">
+          <div class="card">
+            <div class="pill">
+              <span class="badge">BST</span>
+              <span style="color:var(--muted); font-weight:700;">Technology Services Today. Platforms for Tomorrow.</span>
+            </div>
+            <h2>Reliable IT support, integration, and development for growing businesses.</h2>
+            <p>
+              Bright Side Technology provides hands-on technical support, system integration, Microsoft 365 business support,
+              SQL development, consulting, website development, and design services — with future platforms in case management
+              and HR & payroll.
+            </p>
+            <div class="cta-row">
+              <a class="btn primary" href="#/contact">Request Support</a>
+              <a class="btn" href="#/services">View Services</a>
+              <a class="btn ghost" href="#/solutions">Upcoming Platforms</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="margin:0 0 10px;">Featured (Microsoft 365)</h3>
+            <div class="img-wrap hero-image">
+              <img
+                src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532261/SCHNEIDER-IT-MANAGEMENT-2023-12-27-Website-Microsoft-365-E5-Hero_ybnwgg.jpg"
+                alt="Microsoft 365 business support"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery" aria-label="Microsoft 365 image gallery">
+              <div class="img-wrap" style="height:120px;">
+                <img
+                  src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/Is-Microsoft-365-the-same-as-Business-Central_dufkyu.jpg"
+                  alt="Microsoft 365 overview"
+                  loading="lazy"
+                />
+              </div>
+              <div class="img-wrap" style="height:120px;">
+                <img
+                  src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532261/272650-Hero-616x410_qfneg9.avif"
+                  alt="SQL Server development"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="grid" style="grid-template-columns:repeat(2,1fr); gap:10px;">
+              <div class="card" style="padding:12px; background:rgba(0,0,0,.15); box-shadow:none;">
+                <strong>Support</strong><div class="mini">Fast troubleshooting & maintenance</div>
+              </div>
+              <div class="card" style="padding:12px; background:rgba(0,0,0,.15); box-shadow:none;">
+                <strong>Integration</strong><div class="mini">APIs, automations, data sync</div>
+              </div>
+              <div class="card" style="padding:12px; background:rgba(0,0,0,.15); box-shadow:none;">
+                <strong>Microsoft 365</strong><div class="mini">Exchange, Teams, SharePoint</div>
+              </div>
+              <div class="card" style="padding:12px; background:rgba(0,0,0,.15); box-shadow:none;">
+                <strong>SQL & Apps</strong><div class="mini">Databases, reporting, tools</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section">
+        <h3>Core services</h3>
+        <p class="sub">Everything below is available immediately.</p>
+
+        <div class="grid">
+          <div class="card service">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/IT-support-helpdesk-1_j3cku8.jpg" alt="IT Support and helpdesk" loading="lazy" />
+            </div>
+            <h3>Technical Support</h3>
+            <p>Remote/on-site support, maintenance, troubleshooting, backups, user assistance.</p>
+          </div>
+
+          <div class="card service">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/system-integration-3-1_yirpxe.jpg" alt="System integration services" loading="lazy" />
+            </div>
+            <h3>System Integration</h3>
+            <p>API integration, workflow automation, data transformation (CSV/XML/JSON), middleware.</p>
+          </div>
+
+          <div class="card service">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/Is-Microsoft-365-the-same-as-Business-Central_dufkyu.jpg" alt="Microsoft 365 business support" loading="lazy" />
+            </div>
+            <h3>Microsoft 365 Business</h3>
+            <p>Tenant setup, migrations, Exchange, Teams, SharePoint, security and governance guidance.</p>
+          </div>
+
+          <div class="card service">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532260/Highlight-SQL-Server-2022-02_VP2-859x540_porw9k.avif" alt="SQL Server development" loading="lazy" />
+            </div>
+            <h3>SQL Development</h3>
+            <p>SQL Server design, stored procedures, performance tuning, reporting and analytics.</p>
+          </div>
+
+          <div class="card service">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/Outsourcing-Vs-In-House-IT-Support_svf2hz.jpg" alt="IT consulting and managed services" loading="lazy" />
+            </div>
+            <h3>Consulting</h3>
+            <p>Architecture, process optimisation, digital transformation planning and delivery.</p>
+          </div>
+
+          <div class="card service">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532261/what-is-system-integration-definition-obstacles-leveraging-ai-2024_eaikhc.jpg" alt="Website development and design" loading="lazy" />
+            </div>
+            <h3>Web & Design</h3>
+            <p>Websites, hosting support, and poster/digital design for marketing and internal comms.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="page-services" class="page">
+      <section class="section">
+        <h3>Services</h3>
+        <p class="sub">Choose what you need — we can scope a once-off job or a monthly support plan.</p>
+
+        <div class="grid">
+          <div class="card">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/Outsourcing-Vs-In-House-IT-Support_svf2hz.jpg" alt="Technical support services" loading="lazy" />
+            </div>
+            <h3>Technical Support</h3>
+            <ul class="list">
+              <li>Remote and on-site support</li>
+              <li>PC, server, and application troubleshooting</li>
+              <li>Backups, recovery, and basic security checks</li>
+              <li>Monitoring and preventative maintenance</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/system-integration-3-1_yirpxe.jpg" alt="System integration services" loading="lazy" />
+            </div>
+            <h3>System Integration</h3>
+            <ul class="list">
+              <li>API-to-API integration</li>
+              <li>ERP/Accounting integrations</li>
+              <li>Workflow automation</li>
+              <li>Data extraction and transformation</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532261/SCHNEIDER-IT-MANAGEMENT-2023-12-27-Website-Microsoft-365-E5-Hero_ybnwgg.jpg" alt="Microsoft 365 support" loading="lazy" />
+            </div>
+            <h3>Microsoft 365 Business Support</h3>
+            <ul class="list">
+              <li>Tenant configuration & migration</li>
+              <li>Exchange, Teams, SharePoint setup</li>
+              <li>Security baselines & access policies</li>
+              <li>User onboarding/offboarding</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532261/272650-Hero-616x410_qfneg9.avif" alt="SQL development services" loading="lazy" />
+            </div>
+            <h3>SQL Development</h3>
+            <ul class="list">
+              <li>Database design & optimisation</li>
+              <li>Stored procedures & ETL routines</li>
+              <li>Performance tuning</li>
+              <li>Reporting & analytics</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532262/IT-support-helpdesk-1_j3cku8.jpg" alt="IT consulting" loading="lazy" />
+            </div>
+            <h3>Consulting</h3>
+            <ul class="list">
+              <li>Architecture and solution design</li>
+              <li>Process mapping and improvement</li>
+              <li>Technology selection</li>
+              <li>Implementation oversight</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="img-wrap thumb">
+              <img src="https://res.cloudinary.com/daujbgaxr/image/upload/v1770532261/what-is-system-integration-definition-obstacles-leveraging-ai-2024_eaikhc.jpg" alt="Website development and design" loading="lazy" />
+            </div>
+            <h3>Website Development & Poster Design</h3>
+            <ul class="list">
+              <li>Business websites (static or dynamic)</li>
+              <li>Hosting setup and maintenance</li>
+              <li>Posters, flyers, and digital designs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <a class="btn primary" href="#/contact">Request a Quote</a>
+        </div>
+      </section>
+    </section>
+
+    <!-- SOLUTIONS -->
+    <section id="page-solutions" class="page">
+      <section class="section">
+        <h3>Solutions (Coming Soon)</h3>
+        <p class="sub">
+          We’re validating demand before building. Register interest and tell us your industry and user size.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Case Management System <span class="badge" style="margin-left:8px;">In Validation</span></h3>
+            <p class="mini">For law firms, professional services, NGOs and compliance-driven teams.</p>
+            <ul class="list">
+              <li>Case folders and document indexing</li>
+              <li>Tasks and deadlines tracking</li>
+              <li>Audit logs and role-based security</li>
+              <li>Microsoft 365 integration</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>HR & Payroll Platform <span class="badge" style="margin-left:8px;">In Development</span></h3>
+            <p class="mini">For SMEs, schools, and growing organisations.</p>
+            <ul class="list">
+              <li>Employee records</li>
+              <li>Leave & attendance</li>
+              <li>Payroll processing</li>
+              <li>Compliance-ready reporting</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3 style="margin:0 0 10px;">Register Interest (Demand Tracking)</h3>
+
+          <!-- ✅ Formspree: Solution Interest -->
+          <form id="interestForm"
+                action="https://formspree.io/f/meelqdrq"
+                method="POST">
+            <input type="hidden" name="formType" value="Solution Interest" />
+
+            <div class="row">
+              <div>
+                <label for="company">Company / Organisation</label>
+                <input id="company" name="company" placeholder="e.g. ABC Attorneys" required />
+              </div>
+              <div>
+                <label for="contactName">Contact Name</label>
+                <input id="contactName" name="contactName" placeholder="Your name" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="name@company.com" required />
+              </div>
+              <div>
+                <label for="phone">Phone (optional)</label>
+                <input id="phone" name="phone" placeholder="+27 ..." />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="industry">Industry</label>
+                <select id="industry" name="industry" required>
+                  <option value="" disabled selected hidden>Select…</option>
+                  <option>Law / Legal</option>
+                  <option>Professional Services</option>
+                  <option>SME / Retail</option>
+                  <option>Education / School</option>
+                  <option>NGO / Non-profit</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="users">Approx. Users</label>
+                <select id="users" name="users" required>
+                  <option value="" disabled selected hidden>Select…</option>
+                  <option>1–5</option>
+                  <option>6–20</option>
+                  <option>21–50</option>
+                  <option>51–200</option>
+                  <option>200+</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="interest">Interested In</label>
+                <select id="interest" name="interest" required>
+                  <option value="" disabled selected hidden>Select…</option>
+                  <option value="CaseManagement">Case Management System</option>
+                  <option value="HRPayroll">HR & Payroll Platform</option>
+                  <option value="Both">Both</option>
+                </select>
+              </div>
+              <div>
+                <label for="timeline">Preferred Timeline</label>
+                <select id="timeline" name="timeline" required>
+                  <option value="" disabled selected hidden>Select…</option>
+                  <option>0–3 months</option>
+                  <option>3–6 months</option>
+                  <option>6–12 months</option>
+                  <option>12+ months</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="notes">Notes (optional)</label>
+              <textarea id="notes" name="notes" placeholder="Tell us what features matter most…"></textarea>
+            </div>
+
+            <div class="row">
+              <button class="btn primary" type="submit">Submit Interest</button>
+            </div>
+
+            <div id="interestStatus" class="form-status" aria-live="polite"></div>
+
+            <p class="mini">
+              By submitting, you consent to us processing your info for the purpose of responding and product validation.
+              See <a href="#/legal"><strong>Legal</strong></a> for POPIA-aligned notices.
+            </p>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page">
+      <section class="section">
+        <h3>About Bright Side Technology</h3>
+        <p class="sub">
+          We help organisations run smoother with dependable IT support, clean system integrations, and practical software solutions.
+          Our roadmap includes purpose-built platforms for case management and HR & payroll once demand is validated.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>What we stand for</h3>
+            <ul class="list">
+              <li>Reliable delivery and clear communication</li>
+              <li>Security-aware designs and data handling</li>
+              <li>Automation to reduce manual work</li>
+              <li>Systems that scale with your business</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>How we work</h3>
+            <ul class="list">
+              <li>Discovery → requirements → plan</li>
+              <li>Implement → test → handover</li>
+              <li>Support → monitoring → improvements</li>
+              <li>Documented handover and support options</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="page-contact" class="page">
+      <section class="section">
+        <h3>Contact</h3>
+        <p class="sub">Send a request and we’ll respond.</p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3 style="margin:0 0 10px;">Request Support / Quote</h3>
+
+            <!-- ✅ Formspree: Contact -->
+            <form id="contactForm"
+                  action="https://formspree.io/f/mlgwevwy"
+                  method="POST">
+              <input type="hidden" name="formType" value="Contact / Quote Request" />
+
+              <div class="row">
+                <div>
+                  <label for="cName">Full Name</label>
+                  <input id="cName" name="name" required />
+                </div>
+                <div>
+                  <label for="cEmail">Email</label>
+                  <input id="cEmail" name="email" type="email" required />
+                </div>
+              </div>
+
+              <div class="row">
+                <div>
+                  <label for="cPhone">Phone (optional)</label>
+                  <input id="cPhone" name="phone" />
+                </div>
+                <div>
+                  <label for="cService">Service</label>
+                  <select id="cService" name="service" required>
+                    <option value="" disabled selected hidden>Select a service…</option>
+                    <option>Technical Support</option>
+                    <option>System Integration</option>
+                    <option>Microsoft 365 Support</option>
+                    <option>SQL Development</option>
+                    <option>Consulting</option>
+                    <option>Website Development</option>
+                    <option>Poster / Design</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="cMessage">Message</label>
+                <textarea id="cMessage" name="message" placeholder="Describe your request…" required></textarea>
+              </div>
+
+              <div class="row">
+                <button class="btn primary" type="submit">Submit Request</button>
+              </div>
+
+              <div id="contactStatus" class="form-status" aria-live="polite"></div>
+
+              <p class="mini">
+                By submitting, you consent to us processing your info to respond to your request. See
+                <a href="#/legal"><strong>Legal</strong></a>.
+              </p>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3 style="margin:0 0 10px;">Quick links</h3>
+            <p class="mini">
+              <strong>Website:</strong> BrightSideTech.co.za<br/>
+              <strong>Email:</strong> <a href="mailto:admin@brightsidetech.co.za"><strong>admin@brightsidetech.co.za</strong></a><br/>
+              <strong>Phone:</strong> <a href="tel:+27670502317"><strong>+27 (067) 050 2317</strong></a><br/>
+              <strong>Hours:</strong> Mon–Fri, 08:00–17:00
+            </p>
+            <div class="divider"></div>
+
+            <h3 style="margin:0 0 10px;">WhatsApp</h3>
+            <p class="mini">Chat with us directly on WhatsApp.</p>
+            <button class="btn" id="whatsappBtn" type="button">Chat on WhatsApp</button>
+
+            <div class="divider"></div>
+
+            <h3 style="margin:0 0 10px;">Book a meeting (optional)</h3>
+            <p class="mini">Online Booking Coming Soon (Outlook Bookings / Calendly).</p>
+            <a class="btn ghost" href="#" id="bookingLink">Open Booking Link</a>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- LEGAL -->
+    <section id="page-legal" class="page">
+      <section class="section">
+        <h3>Legal</h3>
+        <p class="sub">Simple, POPIA-aware notices for a services website.</p>
+
+        <div class="card">
+          <h3>Privacy Notice (POPIA-aligned)</h3>
+          <p class="mini">
+            Bright Side Technology processes personal information only for legitimate business purposes, including responding to enquiries,
+            providing services, and improving our offerings. We take reasonable technical and organisational measures to protect information
+            from loss, unauthorised access, or disclosure. We retain information only as long as required for the purpose collected or
+            as required by law.
+          </p>
+          <p class="mini">
+            You may request access, correction, or deletion of your information where applicable. Contact:
+            <strong><a href="mailto:admin@brightsidetech.co.za">admin@brightsidetech.co.za</a></strong>.
+          </p>
+
+          <div class="divider"></div>
+
+          <h3>Cookie Notice</h3>
+          <p class="mini">
+            This website uses essential browser storage (localStorage) only to remember cookie preferences and improve basic user experience.
+            Our contact and enquiry forms are submitted via Formspree (a third-party form processing service). When you submit a form, the information
+            you provide is transmitted to Formspree for processing and delivery to us. We do not use third-party tracking cookies by default in this template.
+          </p>
+
+          <div class="divider"></div>
+
+          <h3>Terms of Use (Website)</h3>
+          <p class="mini">
+            Content is provided for general information and may change without notice. While we strive for accuracy, we do not warrant that
+            information is complete or error-free. Use of this website is at your own risk. No professional advice is created by browsing
+            this website. Services are provided subject to formal scope, quotation, and agreement.
+          </p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center;">
+        <div class="mini">
+          © <span id="year"></span> Bright Side Technology. All rights reserved.
+        </div>
+        <div class="mini" style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="#/services">Services</a>
+          <a href="#/solutions">Solutions</a>
+          <a href="#/legal">Legal</a>
+          <a href="#" id="openCookiePrefs">Cookie Preferences</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div id="cookieBanner" class="toast" style="left:16px; right:auto; bottom:16px; display:none;">
+    <div style="display:flex; gap:10px; align-items:flex-start; justify-content:space-between;">
+      <div class="mini">
+        <strong style="color:var(--text);">Cookies / Storage</strong><br/>
+        We use essential browser storage for preferences only.
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+        <button class="btn primary" id="acceptCookiesBtn" type="button">Accept</button>
+        <button class="btn" id="rejectCookiesBtn" type="button">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CONFIG = {
+      whatsappNumber: "+27670502317", // ✅ Your number
+      bookingUrl: "https://example.com/booking", // Update when ready
+      storageKeys: { cookieConsent: "bst_cookie_consent" }
+    };
+
+    const pages = {
+      "#/home": "page-home",
+      "#/services": "page-services",
+      "#/solutions": "page-solutions",
+      "#/about": "page-about",
+      "#/contact": "page-contact",
+      "#/legal": "page-legal"
+    };
+
+    function setActiveRoute() {
+      const hash = location.hash || "#/home";
+      const safeHash = pages[hash] ? hash : "#/home";
+      const pageId = pages[safeHash];
+
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId)?.classList.add("active");
+
+      document.querySelectorAll("nav a[data-route]").forEach(a => {
+        a.classList.toggle("active", a.getAttribute("data-route") === safeHash);
+      });
+
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    window.addEventListener("hashchange", setActiveRoute);
+    setActiveRoute();
+
+    const toast = document.getElementById("toast");
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.style.display = "none", 2600);
+    }
+
+    const banner = document.getElementById("cookieBanner");
+    const consentKey = CONFIG.storageKeys.cookieConsent;
+
+    function getConsent() {
+      try { return localStorage.getItem(consentKey); } catch { return null; }
+    }
+    function setConsent(value) {
+      try { localStorage.setItem(consentKey, value); } catch {}
+      banner.style.display = "none";
+      showToast(value === "accepted" ? "Preferences saved: Accepted" : "Preferences saved: Rejected");
+    }
+    function maybeShowBanner() {
+      const consent = getConsent();
+      if (!consent) banner.style.display = "block";
+    }
+
+    document.getElementById("acceptCookiesBtn").addEventListener("click", () => setConsent("accepted"));
+    document.getElementById("rejectCookiesBtn").addEventListener("click", () => setConsent("rejected"));
+    document.getElementById("openCookiePrefs").addEventListener("click", (e) => {
+      e.preventDefault();
+      banner.style.display = "block";
+    });
+    maybeShowBanner();
+
+    // WhatsApp + Booking
+    document.getElementById("whatsappBtn")?.addEventListener("click", () => {
+      const num = CONFIG.whatsappNumber.replace(/\s+/g,"").replace("+","");
+      const msg = encodeURIComponent("Hi Bright Side Technology, I need assistance with...");
+      window.open(`https://wa.me/${num}?text=${msg}`, "_blank", "noopener");
+    });
+
+    const bookingLink = document.getElementById("bookingLink");
+    if (bookingLink) bookingLink.href = CONFIG.bookingUrl;
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Formspree AJAX submit (keeps you on same page + shows success/error)
+    async function wireFormspree(formId, statusId) {
+      const form = document.getElementById(formId);
+      const status = document.getElementById(statusId);
+      if (!form || !status) return;
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.className = "form-status";
+        status.style.display = "block";
+        status.textContent = "Submitting…";
+
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { "Accept": "application/json" }
+          });
+
+          if (res.ok) {
+            status.classList.add("ok");
+            status.textContent = "Thank you! Your submission has been sent.";
+            form.reset();
+            showToast("Submitted successfully");
+          } else {
+            status.classList.add("err");
+            status.textContent = "Sorry — something went wrong. Please try again.";
+            showToast("Submission failed");
+          }
+        } catch (err) {
+          status.classList.add("err");
+          status.textContent = "Network error — please check your connection and try again.";
+          showToast("Network error");
+        }
+      });
+    }
+
+    wireFormspree("contactForm", "contactStatus");
+    wireFormspree("interestForm", "interestStatus");
+  </script>
+</body>
+</html>
